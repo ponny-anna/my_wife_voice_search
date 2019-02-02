@@ -1,1 +1,4 @@
 /env
+/mysite/mysite/__pycache__
+/mysite/voice_app/migrations
+/mysite/db.sqlite3
