@@ -19,7 +19,7 @@ class VoiceActor(models.Model):
     office_URL         = models.URLField('事務所URL', null=True, blank=True)
     official_site_name = models.CharField('個別サイト', max_length=100, null=True,blank=True)
     offisal_site_URL   = models.URLField('個別サイトURL', null=True, blank=True)
-    iamge              = models.ImageField('画像', null=True, blank=True)
+    image              = models.ImageField('画像', null=True, blank=True)
     masterpiece        = models.TextField('代表作品', null=True, blank=True)
 
     class Meta:
@@ -30,22 +30,6 @@ class VoiceActor(models.Model):
     
     def __unicode__(self):
         return self.name
-
-
-class SampleVoice(models.Model):
-    """
-    音声データを管理する
-    """
-
-    voice_actor = models.ForeignKey(VoiceActor, verbose_name='声優名', on_delete=models.CASCADE)
-    words          = models.TextField('台詞')
-    voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])])
-
-    class Meta:
-        db_table = 'sample_voice'
-
-    def __str__(self):
-        return f'{str(self.voice_actor)} - {self.words}'
 
 
 class Property(models.Model):
@@ -62,19 +46,18 @@ class Property(models.Model):
     def __str__(self):
         return self.property_name
 
-
-class SampleVoiceProperty(models.Model):
+class SampleVoice(models.Model):
     """
-    音声データ、属性名を紐づける
+    音声データを管理する
     """
 
-    sample_voice  = models.ForeignKey(SampleVoice, verbose_name='音声データ', on_delete=models.CASCADE)
-    property_name = models.ForeignKey(Property, verbose_name='属性名', on_delete=models.CASCADE)
+    voice_actor    = models.ForeignKey(VoiceActor, verbose_name='声優名', on_delete=models.CASCADE)
+    words          = models.TextField('台詞')
+    voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])])
+    property_name  = models.ForeignKey(Property, verbose_name="種別", on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'sample_voice_property'
-        unique_together = ('sample_voice', 'property_name', )
+        db_table = 'sample_voice'
 
     def __str__(self):
-        return f'{self.sample_voice} - {self.property_name}'
-
+        return f'{str(self.voice_actor)} - {self.words}'
