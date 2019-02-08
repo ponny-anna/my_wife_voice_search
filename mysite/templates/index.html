@@ -3,5 +3,9 @@
 {% block content %}
 
 <p>index</p>
+ 
+ {% for property in propertys %}
+ <li><a href="{% url 'voice_list' property.id %}">{{ property }}</a></li>
+ {% endfor %}
 
 {% endblock %}

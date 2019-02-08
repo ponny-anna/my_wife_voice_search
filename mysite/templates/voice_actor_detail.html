@@ -2,6 +2,44 @@
 
 {% block content %}
 
-<p>voice_actor_detail</p>
+<h1>{{ voice_actor.name }}</h1>
+
+<img src="{{ voice_actor.image.url }}" width="300" height="300">
+<table>
+  <tr>
+    <th>名前:</th>
+    <td>{{ voice_actor.name }}</td>
+  </tr>
+  <tr>
+    <th>年齢:</th>
+    <td>{{ voice_actor.age }}</td>
+  </tr>
+  <tr>
+    <th>性別:</th>
+    <td>{{ voice_actor.sex }}</td>
+  </tr>
+  <tr>
+    <th>誕生日:</th>
+    <td>{{ voice_actor.birthday }}</td>
+  </tr>
+  <tr>
+    <th>事務所:</th>
+    <td>{{ voice_actor.office }}</td>
+  </tr>
+  <tr>
+    <th>個別サイト:</th>
+    <td>{{ voice_actor.official_site_name }}</td>
+  </tr>
+  <tr>
+    <th>代表作品:</th>
+    <td>{{ voice_actor.masterpiece }}</td>
+  </tr>
+</table>
+
+<hr size="1" color="#000000">
+
+{% for voice in voice_list %}
+ <li>{{ voice.words }} : 属性【{{ voice.property_name }}】 <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+{% endfor %}
 
 {% endblock %}

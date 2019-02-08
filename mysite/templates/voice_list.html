@@ -2,6 +2,10 @@
 
 {% block content %}
 
-<p>voice_list</p>
+<h1>音声リスト</h1>
+
+ {% for voice in voices %}
+ <li>{{ voice.words }} - <a href="{% url 'actor_detail' voice.voice_actor.id %}">{{ voice.voice_actor.name}}</a> <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+ {% endfor %}
 
 {% endblock %}
