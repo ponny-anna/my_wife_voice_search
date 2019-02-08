@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, DetailView, ListView, CreateView
+from django.urls import reverse_lazy
 
 from .models import Property, VoiceActor, SampleVoice
+from .forms import VoiceActorForm
 
 class Index(TemplateView):
 
@@ -35,3 +37,11 @@ class VoiceActorDetail(DetailView):
         ctx['voice_list'] = SampleVoice.objects.filter(voice_actor_id=self.kwargs.get('pk')).select_related('property_name')
 
         return ctx
+
+
+class VoiceActoreCreate(CreateView):
+
+    model = VoiceActor
+    form_class = VoiceActorForm
+    template_name = "voice_actor_create.html"
+    success_url = reverse_lazy('index')
