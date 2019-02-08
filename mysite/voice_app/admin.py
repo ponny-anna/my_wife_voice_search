@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import VoiceActor, SampleVoice, Property, SampleVoiceProperty
+from .models import VoiceActor, SampleVoice, Property
 
 @admin.register(VoiceActor)
 class VoiceActorAdmin(admin.ModelAdmin):
@@ -14,8 +14,3 @@ class SampleVoiceAdmin(admin.ModelAdmin):
 @admin.register(Property)
 class PropertyAdmin(admin.ModelAdmin):
     pass
-
-@admin.register(SampleVoiceProperty)
-class SampleVoicePropertyAdmin(admin.ModelAdmin):
-    pass
-
