@@ -54,7 +54,6 @@ class SampleVoice(models.Model):
     voice_actor    = models.ForeignKey(VoiceActor, verbose_name='声優名', on_delete=models.CASCADE)
     words          = models.TextField('台詞')
     voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])])
-    property_name  = models.ForeignKey(Property, verbose_name="種別", on_delete=models.CASCADE)
     title          = models.CharField('作品名', max_length=100)
     character_name = models.CharField('キャラクタ名', max_length=100)
 
@@ -63,3 +62,11 @@ class SampleVoice(models.Model):
 
     def __str__(self):
         return f'{str(self.voice_actor)} - {self.words}'
+
+class SampleVoiceProperty(models.Model):
+    """
+    音声属性を管理する
+    """
+
+    voice    = models.ForeignKey(SampleVoice, verbose_name=_("音声データID"), on_delete=models.CASCADE)
+    property = models.ForeignKey(Property, verbose_name=_("属性ID"), on_delete=models.CASCADE)
