@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from django.urls import reverse_lazy
 
 from .models import Property, VoiceActor, SampleVoice
-from .forms import VoiceActorForm
+from .forms import VoiceActorForm, SampleVoiceForm, PropertyForm
 
 class Index(TemplateView):
 
@@ -44,4 +44,18 @@ class VoiceActoreCreate(CreateView):
     model = VoiceActor
     form_class = VoiceActorForm
     template_name = "voice_actor_create.html"
+    success_url = reverse_lazy('index')
+
+class SampleVoiceCreate(CreateView):
+
+    model = SampleVoice
+    form_class = SampleVoiceForm
+    template_name = "sample_voice_create.html"
+    success_url = reverse_lazy('index')
+
+class PropertyCreate(CreateView):
+
+    model = Property
+    form_class = PropertyForm
+    template_name = "property_create.html"
     success_url = reverse_lazy('index')

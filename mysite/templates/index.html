@@ -5,7 +5,9 @@
 <p>index</p>
 
 <h3><a href="{% url 'actor_create' %}">声優新規追加</a></h3>
- 
+<h3><a href="{% url 'voice_create' %}">音声新規追加</a></h3>
+<h3><a href="{% url 'property_create' %}">属性新規追加</a></h3>
+
  {% for property in propertys %}
  <li><a href="{% url 'voice_list' property.id %}">{{ property }}</a></li>
  {% endfor %}
