@@ -37,7 +37,7 @@ class Property(models.Model):
     属性名を管理する
     """
 
-    property_name = models.TextField('属性名', max_length=100)
+    property_name = models.CharField('属性名', max_length=100)
 
     class Meta:
         db_table = 'property'
@@ -55,6 +55,8 @@ class SampleVoice(models.Model):
     words          = models.TextField('台詞')
     voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])])
     property_name  = models.ForeignKey(Property, verbose_name="種別", on_delete=models.CASCADE)
+    title          = models.CharField('作品名', max_length=100)
+    character_name = models.CharField('キャラクタ名', max_length=100)
 
     class Meta:
         db_table = 'sample_voice'
