@@ -25,9 +25,10 @@ class VoiceList(ListView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        ctx['property']      = Property.objects.get(pk=self.kwargs.get('pk'))
         ctx['voice_list']    = SampleVoice.objects.all().select_related('voice_actor').filter(property_name__pk=self.kwargs.get('pk'))
-        sample_voice_id       = list(set([str(x.get('id')) for x in ctx['voice_list'].values('id')]))
-        sample_voice_id       = ', '.join(sample_voice_id)
+        sample_voice_id      = list(set([str(x.get('id')) for x in ctx['voice_list'].values('id')]))
+        sample_voice_id      = ', '.join(sample_voice_id)
         ctx['property_list'] = Property.objects.raw('SELECT * FROM property AS p JOIN sample_voice_property_name AS s ON s.property_id = p.id WHERE s.samplevoice_id IN (%s)' % sample_voice_id)
         return ctx
 

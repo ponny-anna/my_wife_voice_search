@@ -2,8 +2,9 @@
 
 {% block content %}
 
-<h1>音声リスト</h1>
+<h1><center>{{ property }}属性</center></h1>
 
+<!--
  {% for voice in voice_list %}
  <li>{{ voice.words }} - <a href="{% url 'actor_detail' voice.voice_actor.id %}">{{ voice.voice_actor.name}} </a><br>
  [属性] 
@@ -13,5 +14,24 @@
  <br>
  <audio controls><source src="{{ voice.voice.url }}"></audio></li>
  {% endfor %}
+-->
+  <div class="row">
+  {% for voice in voice_list %}
+  <div class="col-md-4">
+    <div class="card card-body">
+      <h5 class="card-title border-bottom">声優名: {{ voice.voice_actor.name}}</h5>
+      <h5 class="card-title border-bottom">
+      属性:  
+      {% for property in property_list%}
+      {% ifequal property.samplevoice_id voice.id %} [{{ property }}] {% endifequal %}
+      {% endfor %}
+      </h5>
+      
+      <p class="card-text">{{ voice.words }}</p>
+      <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+    </div>
+  </div>
+ {% endfor %}
+ </div>
 
 {% endblock %}
