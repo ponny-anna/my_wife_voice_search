@@ -6,11 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>俺嫁声優探し</title>
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  {% block layout %} {% endblock %}
 </head>
 <body>
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">俺嫁声優探し</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="ナビゲーションの切替">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index' %}">ホーム<span class="sr-only">(現位置)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">新規データ作成</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown">
+            <a class="dropdown-item" href="{% url 'actor_create' %}">声優情報</a>
+            <a class="dropdown-item" href="{% url 'voice_create' %}">音声データ</a>
+            <a class="dropdown-item" href="{% url 'property_create' %}">属性情報</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-md-0">
+        <input class="form-control" type="search" placeholder="検索..." aria-label="検索...">
+      </form>
+    </div>
+  </nav>
 
   {% block content %}
   {% endblock %}
 
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

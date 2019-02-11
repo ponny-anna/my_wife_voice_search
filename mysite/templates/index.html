@@ -2,14 +2,28 @@
 
 {% block content %}
 
-<p>index</p>
+<div class="container">
 
-<h3><a href="{% url 'actor_create' %}">声優新規追加</a></h3>
-<h3><a href="{% url 'voice_create' %}">音声新規追加</a></h3>
-<h3><a href="{% url 'property_create' %}">属性新規追加</a></h3>
+  <div class="jumbotron mt-4">
+    <h1 class="display-4">サイト名</h1>
+    <p class="lead">なんかたぶんサイト説明っぽいもの</p>
+  </div><!-- /.jumbotron -->
 
- {% for property in propertys %}
- <li><a href="{% url 'voice_list' property.id %}">{{ property }}</a></li>
+
+  <div class="alert alert-primary" role="alert"><strong>属性リスト</strong></div>
+  <div class="row">
+  {% for property in propertys %}
+    <div class="col-sm-6 col-md-3">
+      <div class="card img-thumbnail">
+        <img class="card-img-top" src="..." alt="カードの画像" />
+        <div class="card-body px-2 py-3">
+          <h5 class="card-title">{{ property }}</h5>
+          <p class="mb-0"><a href="{% url 'voice_list' property.id %}">表示</a></p>
+        </div>
+      </div>
+    </div>
  {% endfor %}
+  </div>
+</container>
 
 {% endblock %}
