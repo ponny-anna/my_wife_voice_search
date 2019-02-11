@@ -4,8 +4,14 @@
 
 <h1>音声リスト</h1>
 
- {% for voice in voices %}
- <li>{{ voice.words }} - <a href="{% url 'actor_detail' voice.voice_actor.id %}">{{ voice.voice_actor.name}}</a> <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+ {% for voice in voice_list %}
+ <li>{{ voice.words }} - <a href="{% url 'actor_detail' voice.voice_actor.id %}">{{ voice.voice_actor.name}} </a><br>
+ [属性] 
+ {% for property in property_list%}
+  {% ifequal property.samplevoice_id voice.id %} {{ property }} {% endifequal %}
+ {% endfor %}
+ <br>
+ <audio controls><source src="{{ voice.voice.url }}"></audio></li>
  {% endfor %}
 
 {% endblock %}

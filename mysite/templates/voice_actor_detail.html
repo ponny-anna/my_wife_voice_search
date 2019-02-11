@@ -39,7 +39,9 @@
 <hr size="1" color="#000000">
 
 {% for voice in voice_list %}
- <li>{{ voice.words }} : 属性【{{ voice.property_name }}】 <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+ <li>{{ voice.words }} <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+ {% for property in property_list%}
+  {% ifequal property.samplevoice_id voice.id %} {{ property }} {% endifequal %}
+ {% endfor %}
 {% endfor %}
-
 {% endblock %}

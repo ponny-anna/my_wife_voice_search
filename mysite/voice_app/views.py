@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, DetailView, ListView, CreateView
 from django.urls import reverse_lazy
+from django.db.models import Prefetch
 
 from .models import Property, VoiceActor, SampleVoice
 from .forms import VoiceActorForm, SampleVoiceForm, PropertyForm
@@ -18,12 +19,17 @@ class Index(TemplateView):
 
 class VoiceList(ListView):
 
+    model = SampleVoice
     context_object_name = 'voices'
     template_name = "voice_list.html"
 
-    def get_queryset(self):
-        queryset = SampleVoice.objects.select_related('property_name').filter(property_name_id=self.kwargs.get('pk')).select_related('voice_actor')
-        return queryset
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['voice_list']    = SampleVoice.objects.all().select_related('voice_actor').filter(property_name__pk=self.kwargs.get('pk'))
+        sample_voice_id       = list(set([str(x.get('id')) for x in ctx['voice_list'].values('id')]))
+        sample_voice_id       = ', '.join(sample_voice_id)
+        ctx['property_list'] = Property.objects.raw('SELECT * FROM property AS p JOIN sample_voice_property_name AS s ON s.property_id = p.id WHERE s.samplevoice_id IN (%s)' % sample_voice_id)
+        return ctx
 
 
 class VoiceActorDetail(DetailView):
@@ -34,7 +40,11 @@ class VoiceActorDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx['voice_list'] = SampleVoice.objects.filter(voice_actor_id=self.kwargs.get('pk')).select_related('property_name')
+        ctx['voice_list'] = SampleVoice.objects.filter(voice_actor_id=self.kwargs.get('pk'))
+        sample_voice_id       = list(set([str(x.get('id')) for x in ctx['voice_list'].values('id')]))
+        sample_voice_id       = ', '.join(sample_voice_id)
+        print(sample_voice_id)
+        ctx['property_list'] = Property.objects.raw('SELECT * FROM property AS p JOIN sample_voice_property_name AS s ON s.property_id = p.id WHERE s.samplevoice_id IN (%s)' % sample_voice_id)
 
         return ctx
 
