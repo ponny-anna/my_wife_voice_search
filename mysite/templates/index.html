@@ -9,13 +9,18 @@
     <p class="lead">なんかたぶんサイト説明っぽいもの</p>
   </div><!-- /.jumbotron -->
 
+  <div class="alert alert-success" role="alert"><strong>新規追加データ(仮)</strong></div>
+  <h5>データ1<span class="badge badge-secondary">New</span></h5>
+  <h5>データ2<span class="badge badge-secondary">New</span></h5>
+  <h5>データ3<span class="badge badge-secondary">New</span></h5>
+
 
   <div class="alert alert-primary" role="alert"><strong>属性リスト</strong></div>
   <div class="row">
   {% for property in propertys %}
     <div class="col-sm-6 col-md-3">
       <div class="card img-thumbnail">
-        <img class="card-img-top" src="..." alt="カードの画像" />
+        <img class="card-img-top img-thumbnail" src="{{ property.image.url }}" alt="カードの画像" />
         <div class="card-body px-2 py-3">
           <h5 class="card-title">{{ property }}</h5>
           <p class="mb-0"><a href="{% url 'voice_list' property.id %}">表示</a></p>

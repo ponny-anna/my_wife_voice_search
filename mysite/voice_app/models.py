@@ -38,6 +38,7 @@ class Property(models.Model):
     """
 
     property_name = models.CharField('属性名', max_length=100)
+    image         = models.ImageField('属性イメージ', null=True, blank=True)
 
     class Meta:
         db_table = 'property'
