@@ -15,16 +15,12 @@
 
 
   <div class="alert alert-primary" role="alert"><strong>属性リスト</strong></div>
-  <div class="row">
+  <div class="row text-center justify-content-center">
   {% for property in propertys %}
-    <div class="col-sm-6 col-md-3">
-      <div class="card img-thumbnail">
-        <img class="card-img-top img-thumbnail" src="{{ property.image.url }}" alt="カードの画像" />
-        <div class="card-body px-2 py-3">
-          <h5 class="card-title">{{ property }}</h5>
-          <p class="mb-0"><a href="{% url 'voice_list' property.id %}">表示</a></p>
-        </div>
-      </div>
+    <div class="col-md-3 m-sm-auto">
+      <img alt="image" class="rounded-circle" height="100px" src="{{ property.image.url }}">
+      <h2>{{ property }}</h2>
+      <p><a href="{% url 'voice_list' property.id %}">表示</a></p>
     </div>
  {% endfor %}
  </div>

@@ -17,18 +17,21 @@
 -->
   <div class="row">
   {% for voice in voice_list %}
-  <div class="col-md-4">
+  <div class="col-md-4 mb-3">
     <div class="card card-body">
-      <h5 class="card-title border-bottom">声優名: {{ voice.voice_actor.name}}</h5>
+      <h5 class="card-title border-bottom">声優名: <a href="{% url 'actor_detail' voice.voice_actor.id %}">{{ voice.voice_actor.name}}</a></h5>
       <h5 class="card-title border-bottom">
       属性:  
       {% for property in property_list%}
-      {% ifequal property.samplevoice_id voice.id %} [{{ property }}] {% endifequal %}
+      {% ifequal property.samplevoice_id voice.id %} <a href="{% url 'voice_list' property.property_id %}">[{{ property }}]</a> {% endifequal %}
       {% endfor %}
       </h5>
+      <h5 class="card-title border-bottom">作品名: {{ voice.title }}</h5>
+      <h5 class="card-title border-bottom">キャラクター名: {{ voice.character_name }}</h5>
       
       <p class="card-text">{{ voice.words }}</p>
       <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+      <a href="#" class="btn btn-primary" style="margin-top: 10px;">編集</a>
     </div>
   </div>
  {% endfor %}

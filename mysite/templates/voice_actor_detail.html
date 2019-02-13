@@ -4,44 +4,62 @@
 
 <h1>{{ voice_actor.name }}</h1>
 
-<img src="{{ voice_actor.image.url }}" width="300" height="300">
-<table>
-  <tr>
-    <th>名前:</th>
-    <td>{{ voice_actor.name }}</td>
-  </tr>
-  <tr>
-    <th>年齢:</th>
-    <td>{{ voice_actor.age }}</td>
-  </tr>
-  <tr>
-    <th>性別:</th>
-    <td>{{ voice_actor.sex }}</td>
-  </tr>
-  <tr>
-    <th>誕生日:</th>
-    <td>{{ voice_actor.birthday }}</td>
-  </tr>
-  <tr>
-    <th>事務所:</th>
-    <td>{{ voice_actor.office }}</td>
-  </tr>
-  <tr>
-    <th>個別サイト:</th>
-    <td>{{ voice_actor.official_site_name }}</td>
-  </tr>
-  <tr>
-    <th>代表作品:</th>
-    <td>{{ voice_actor.masterpiece }}</td>
-  </tr>
-</table>
+<div class="row">
+  <img src="{{ voice_actor.image.url }}" class="col-fill-left col-md-5">
+
+  <table class="table col-md-7">
+    <tr>
+      <th class="thead-dark">名前:</th>
+      <td>{{ voice_actor.name }}</td>
+    </tr>
+    <tr>
+      <th>年齢:</th>
+      <td>{{ voice_actor.age }}</td>
+    </tr>
+    <tr>
+      <th>性別:</th>
+      <td>{{ voice_actor.sex }}</td>
+    </tr>
+    <tr>
+      <th>誕生日:</th>
+      <td>{{ voice_actor.birthday }}</td>
+    </tr>
+    <tr>
+      <th>事務所:</th>
+      <td>{{ voice_actor.office }}</td>
+    </tr>
+    <tr>
+      <th>個別サイト:</th>
+      <td>{{ voice_actor.official_site_name }}</td>
+    </tr>
+    <tr>
+      <th>代表作品:</th>
+      <td>{{ voice_actor.masterpiece }}</td>
+    </tr>
+  </table>
+</div>
 
 <hr size="1" color="#000000">
 
-{% for voice in voice_list %}
- <li>{{ voice.words }} <audio controls><source src="{{ voice.voice.url }}"></audio></li>
- {% for property in property_list%}
-  {% ifequal property.samplevoice_id voice.id %} {{ property }} {% endifequal %}
+<div class="row">
+  {% for voice in voice_list %}
+  <div class="col-md-4 mb-3">
+    <div class="card card-body">
+      <h5 class="card-title border-bottom">
+      属性:  
+      {% for property in property_list%}
+      {% ifequal property.samplevoice_id voice.id %} <a href="{% url 'voice_list' property.property_id %}">[{{ property }}]</a> {% endifequal %}
+      {% endfor %}
+      </h5>
+      <h5 class="card-title border-bottom">作品名: {{ voice.title }}</h5>
+      <h5 class="card-title border-bottom">キャラクター名: {{ voice.character_name }}</h5>
+      
+      <p class="card-text">{{ voice.words }}</p>
+      <audio controls><source src="{{ voice.voice.url }}"></audio></li>
+      <a href="#" class="btn btn-primary" style="margin-top: 10px;">編集</a>
+    </div>
+  </div>
  {% endfor %}
-{% endfor %}
-{% endblock %}
+ </div>
+
+ {% endblock %}
