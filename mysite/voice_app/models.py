@@ -19,8 +19,9 @@ class VoiceActor(models.Model):
     office_URL         = models.URLField('事務所URL', null=True, blank=True)
     official_site_name = models.CharField('個別サイト', max_length=100, null=True,blank=True)
     offisal_site_URL   = models.URLField('個別サイトURL', null=True, blank=True)
-    image              = models.ImageField('画像', null=True, blank=True)
+    image              = models.ImageField('画像', upload_to='actor/')
     masterpiece        = models.TextField('代表作品', null=True, blank=True)
+    updated            = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'voice_actor'
@@ -38,7 +39,8 @@ class Property(models.Model):
     """
 
     property_name = models.CharField('属性名', max_length=100)
-    image         = models.ImageField('属性イメージ', null=True, blank=True)
+    image         = models.ImageField('属性イメージ', upload_to='property/')
+    updated       = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'property'
@@ -54,10 +56,11 @@ class SampleVoice(models.Model):
 
     voice_actor    = models.ForeignKey(VoiceActor, verbose_name='声優名', on_delete=models.CASCADE)
     words          = models.TextField('台詞')
-    voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])])
+    voice          = models.FileField(verbose_name='音声データ', validators=[FileExtensionValidator(['mp3', 'wav'])], upload_to='voice/')
     property_name  = models.ManyToManyField(Property)
     title          = models.CharField('作品名', max_length=100)
     character_name = models.CharField('キャラクタ名', max_length=100)
+    updated        = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'sample_voice'
